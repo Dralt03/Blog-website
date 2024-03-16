@@ -21,17 +21,26 @@ function App() {
       });
   }, []);
 
+  const handleClick = (t, b) => {
+    setposts([
+      {
+        body:b,
+        title:t,
+        id:posts.length+1,
+        userif:1,
+      },
+      ...posts
+    ]);
+
+    setAdd(false);
+  }
+
   const goBack = () => {
     if (start !== 0) {
       setStart(start - 5);
       setEnd(end - 5);
     }
   };
-
-  const changeTitle = (e) => {
-    setTitle(e.target.value);
-    console.log(title);
-  }
 
   const goForward = () => {
     if (end !== posts.length) {
@@ -94,10 +103,10 @@ function App() {
       <div className="form-wrapper">
         <form className="post" onSubmit={(e) => e.preventDefault()}>
           <label>Title</label>
-          <input className="blog-title" type="text" value={title} onChange={(e) => changeTitle(e)}></input>
+          <input className="blog-title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}></input>
           <label>Body</label>
           <textarea className="blog-body" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
-          <button onClick={() => setAdd(false)} id="submit" className="button" type="Submit"> Post </button>
+          <button onClick={() => handleClick(title, body)} id="submit" className="button" type="Submit"> Post </button>
         </form>
       </div>
       </>)}
